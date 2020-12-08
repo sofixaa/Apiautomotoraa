@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using Apiautomotora.Models;
 using Apiautomotora.Azure;
+using System.Linq;
 
 namespace XUnitTestAutomotora
 {
@@ -26,10 +27,10 @@ namespace XUnitTestAutomotora
         {
             //Arrange
             int idProbar = 1;
-            Sede sedeRetornado;
+            Automotora automotoraRetornado;
 
             //Act
-            sedeRetornado = AutomotoraAzure.ObtenerAutomotoraPorId(idProbar);
+            automotoraRetornado = AutomotoraAzure.ObtenerAutomotoraPorId(idProbar);
 
             //Assert
             Assert.NotNull(automotoraRetornado);

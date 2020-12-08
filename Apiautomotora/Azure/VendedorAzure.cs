@@ -31,7 +31,7 @@ namespace Apiautomotora.Azure
                 Vendedor vendedor = new Vendedor();
                 vendedor.idvendedor = int.Parse(dataTable.Rows[i]["idvendedor"].ToString());
                 vendedor.nomvendedorven = dataTable.Rows[i]["nomvendedorven"].ToString();
-                vendedor.rutvendedor = int.Parse(dataTable.Rows[i]["rutvendedor"].ToString());
+                vendedor.rutvendedor = dataTable.Rows[i]["rutvendedor"].ToString();
                 vendedor.direccionven = dataTable.Rows[i]["direccionven"].ToString();
                 vendedor.numvendedor = int.Parse(dataTable.Rows[i]["numvendedor"].ToString());
                 vendedor.direccionauto = dataTable.Rows[i]["direccionauto"].ToString();

@@ -11,7 +11,7 @@ namespace Apiautomotora.Models
         public string tipocontrato { get; set; }
         public string datoauto { get; set; }
         public string rutcliente { get; set; }
-        public int fecontrato { get; set; }
+        public string fecontrato { get; set; }
 
     }
 }

@@ -8,7 +8,7 @@ namespace Apiautomotora.Models
     public class Administrador
     {
         public int idadmi { get; set; }
-        public int nombreadmi { get; set; }
-        public int rutadmi { get; set; }
+        public string nombreadmi { get; set; }
+        public string rutadmi { get; set; }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using Apiautomotora.Models;
 using Apiautomotora.Azure;
+using System.Linq;
 
 namespace XUnitTestVendedor
 {
@@ -14,12 +15,12 @@ namespace XUnitTestVendedor
             int resultadoEsperado = 1;
             int resultadoObtenido = 0;
             Vendedor vendedor = new Vendedor();
-            vendedor.idvendedor = 69;
+            vendedor.idvendedor = 6;
             vendedor.nomvendedorven = "Henry Adasme";
-            vendedor.rutvendedor = 202461107;
-            vendedor.direccionven = "Tu Corazón BB";
+            vendedor.rutvendedor = "202461100";
+            vendedor.direccionven = "Tu Corazón";
             vendedor.numvendedor = 968288940;
-            vendedor.direccionauto = "los NoFunaosSke";
+            vendedor.direccionauto = "los";
 
             //Act
             resultadoObtenido = VendedorAzure.AgregarVendedor(vendedor);

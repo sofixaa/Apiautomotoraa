@@ -107,7 +107,7 @@ namespace Apiautomotora.Azure
             administradores = new List<Administrador>();
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
-                Administradores administrador = new Administrador();
+                Administrador administrador = new Administrador();
                 administrador.idadmi = int.Parse(dataTable.Rows[0]["idadmi"].ToString());
                 administrador.nombreadmi = dataTable.Rows[0]["nombreadmi"].ToString();
                 administrador.rutadmi = dataTable.Rows[0]["rutadmi"].ToString();

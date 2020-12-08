@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using Apiautomotora.Models;
 using Apiautomotora.Azure;
+using System.Linq;
 
 namespace XUnitTestAdministrador
 {
@@ -29,7 +30,7 @@ namespace XUnitTestAdministrador
             Administrador administradorRetornado;
 
             //Act
-            administradorRetornado = AdministradorAzure.ObtenerAdministradorPorId(idProbar);
+            administradorRetornado = AdministradorAzure.ObtenerAdministradoresPorId(idProbar);
 
             //Assert
             Assert.NotNull(administradorRetornado);
@@ -44,7 +45,7 @@ namespace XUnitTestAdministrador
             Administrador administrador = new Administrador();
             administrador.idadmi = 4;
             administrador.nombreadmi = "Aurelio";
-            administrador.rutadmi = "206769833"
+            administrador.rutadmi = "206769833";
 
             //Act
             resultadoObtenido = AdministradorAzure.AgregarAdministrador(administrador);
@@ -60,7 +61,7 @@ namespace XUnitTestAdministrador
             Administrador administrador = new Administrador();
             administrador.idadmi = 4;
             administrador.nombreadmi = "Aurelia";
-            administrador.rutadmi = "206769832"
+            administrador.rutadmi = "206769832";
 
             string nombreAdmiaEliminar = "Aurelia";
 
@@ -81,4 +82,4 @@ namespace XUnitTestAdministrador
 
 
 }
-}
+

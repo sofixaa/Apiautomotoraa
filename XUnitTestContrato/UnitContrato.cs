@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using Apiautomotora.Models;
 using Apiautomotora.Azure;
+using System.Linq;
 
 
 namespace XUnitTestContrato
@@ -46,9 +47,9 @@ namespace XUnitTestContrato
             Contrato contrato = new Contrato();
             contrato.idcontrato = 3;
             contrato.rutcliente = "206769831";
-            contrato.datoauto = 2;
-            contrato.tipocontrato = 2;
-            contrato.fecontrato = 20 - 11 - 2020;
+            contrato.datoauto = "2";
+            contrato.tipocontrato = "2";
+            contrato.fecontrato = "20 - 11 - 2020";
            
 
             //Act
@@ -64,12 +65,12 @@ namespace XUnitTestContrato
             //Arrange
             Contrato contrato = new Contrato();
             contrato.idcontrato = 5;
-            contrato.rutcliente = "2067698312
-            contrato.tipocontrato = 23;
-            contrato.fecontrato = 20 - 11 - 2021;
+            contrato.rutcliente = "2067698312";
+            contrato.tipocontrato = "23";
+            contrato.fecontrato = "20 - 11 - 2021";
 
 
-            string idContratoaEliminar = "Auxiliar";
+            int idContratoaEliminar = 5;
 
             int resultadoEsperado = 1;
             int resultadoObtenido = 0;

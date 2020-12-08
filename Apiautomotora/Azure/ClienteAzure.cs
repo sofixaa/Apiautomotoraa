@@ -14,12 +14,12 @@ namespace Apiautomotora.Azure
         static string connectionString = @"Server=LAPTOP-RSP5ST3A\SQLEXPRESS;Database=apicaso;Trusted_Connection=true";
         private static List<Cliente> clientes;
 
-        public static List<Cliente> ObtenerClientes()
+        public static List<Cliente> ObtenerCliente()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 var dataTableCliente = retornoDeClientesSQL(connection);
-                return LlenadoClientes(dataTableClientes);
+                return LlenadoClientes(dataTableCliente);
             }
         }
 
@@ -41,7 +41,7 @@ namespace Apiautomotora.Azure
                     Cliente cliente = new Cliente();
                     cliente.rutcliente = dataTable.Rows[0]["rutcliente"].ToString();
                     cliente.nombrecli = dataTable.Rows[0]["nombrecli"].ToString();
-                    cliente.direccioncli = dataTable.Rows[0]["direccioncli"].ToString());
+                    cliente.direccioncli = dataTable.Rows[0]["direccioncli"].ToString();
                     cliente.fechanaci = dataTable.Rows[0]["fechanaci"].ToString();
                     cliente.numcel = int.Parse(dataTable.Rows[0]["numcel"].ToString());
                     return cliente;
@@ -109,19 +109,18 @@ namespace Apiautomotora.Azure
             }
         }
 
-        private static List<Clientes> LlenadoClientes(DataTable dataTable)
+        private static List<Cliente> LlenadoClientes(DataTable dataTable)
         {
-            clientes = new List<Clientes>();
+            clientes = new List<Cliente>();
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
                 Cliente cliente = new Cliente();
-                cliente.rutcliente = dataTable.Rows[0]["rutcliente"].ToString();
-                cliente.nombrecli = dataTable.Rows[0]["nombrecli"].ToString();
-                cliente.direccioncli = dataTable.Rows[0]["direccioncli"].ToString());
-                cliente.fechanaci = dataTable.Rows[0]["fechanaci"].ToString();
+                cliente.rutcliente = dataTable.Rows[i]["rutcliente"].ToString();
+                cliente.nombrecli = dataTable.Rows[i]["nombrecli"].ToString();
+                cliente.direccioncli = dataTable.Rows[i]["direccioncli"].ToString();
+                cliente.fechanaci = dataTable.Rows[i]["fechanaci"].ToString();
                 cliente.numcel = int.Parse(dataTable.Rows[0]["numcel"].ToString());
-
-            clientes.Add(cliente);
+                clientes.Add(cliente);
             }
             return clientes;
         }

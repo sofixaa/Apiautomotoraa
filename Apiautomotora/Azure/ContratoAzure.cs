@@ -12,12 +12,12 @@ namespace Apiautomotora.Azure
     {
         static string connectionString = @"Server=LAPTOP-RSP5ST3A\SQLEXPRESS;Database=apicaso;Trusted_Connection=true";
         private static List<Contrato> contratos;
-        private static DataTable ObtenerContratos(SqlConnection connection)
+        public static List<Contrato> ObtenerContratos()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 var dataTableContrato = retornoDeContratosSQL(connection);
-                return LlenadoContratos(dataTableContratos);
+                return LlenadoContratos(dataTableContrato);
             }
         }
 
@@ -41,7 +41,7 @@ namespace Apiautomotora.Azure
                     contrato.rutcliente = dataTable.Rows[0]["rutcliente"].ToString();
                     contrato.tipocontrato = dataTable.Rows[0]["tipocontrato"].ToString();
                     contrato.datoauto = dataTable.Rows[0]["idSede"].ToString();
-                    contrato.fecontrato = DateTime.Parse(dataTable.Rows[0]["fecontrato"].ToString());
+                    contrato.fecontrato = dataTable.Rows[0]["fecontrato"].ToString();
                     contratos.Add(contrato);
 
                     return contrato;
@@ -116,7 +116,7 @@ namespace Apiautomotora.Azure
                 contrato.rutcliente = dataTable.Rows[0]["rutcliente"].ToString();
                 contrato.tipocontrato = dataTable.Rows[0]["tipocontrato"].ToString();
                 contrato.datoauto = dataTable.Rows[0]["idSede"].ToString();
-                contrato.fecontrato = DateTime.Parse(dataTable.Rows[0]["fecontrato"].ToString());
+                contrato.fecontrato = dataTable.Rows[0]["fecontrato"].ToString();
                 contratos.Add(contrato);
             }
             return contratos;
