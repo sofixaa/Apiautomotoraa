@@ -11,7 +11,7 @@ namespace Apiautomotora.Azure
     public class ClienteAzure
     {
 
-        static string connectionString = @"Server=LAPTOP-RSP5ST3A\SQLEXPRESS;Database=apicaso;Trusted_Connection=true";
+        static string connectionString = @"Server=LAPTOP-RSP5ST3A\SQLEXPRESS;Database=apicaso1;Trusted_Connection=true";
         private static List<Cliente> clientes;
 
         public static List<Cliente> ObtenerCliente()

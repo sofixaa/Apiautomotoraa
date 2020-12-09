@@ -27,13 +27,13 @@ namespace XUnitTestAutomotora
         {
             //Arrange
             int idProbar = 1;
-            Automotora automotoraRetornado;
+            //Automotora automotoraRetornado;
 
             //Act
-            automotoraRetornado = AutomotoraAzure.ObtenerAutomotoraPorId(idProbar);
+            int automotoraRetornado = AutomotoraAzure.ObtenerAutomotoraPorId(idProbar);
 
             //Assert
-            Assert.NotNull(automotoraRetornado);
+            Assert.Equal(idProbar,automotoraRetornado);
         }
 
         [Fact]
@@ -43,9 +43,9 @@ namespace XUnitTestAutomotora
             int resultadoEsperado = 1;
             int resultadoObtenido = 0;
             Automotora automotora = new Automotora();
-            automotora.idAutomotora = 4;
-            automotora.nomautomotora = "nomautomotora";
-            automotora.direccionauto = "direccion";
+            automotora.idAutomotora = 5;
+            automotora.nomautomotora = "macriso";
+            automotora.direccionauto = "direcciones";
 
             //Act
             resultadoObtenido = AutomotoraAzure.AgregarAutomotora(automotora);
@@ -53,7 +53,20 @@ namespace XUnitTestAutomotora
             //Assert
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
+        [Fact]
+        public void TestmodificarAutomotora()
+        {
+            Automotora automotora = new Automotora();
+            automotora.idAutomotora = 5;
+            automotora.nomautomotora = "mar";
 
+            int resultadoEsperado = 1;
+            int resultadoObtenido = 0;
+
+            resultadoObtenido = AutomotoraAzure.modificarAutomotora(automotora);
+
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
         [Fact]
         public void TestEliminarAutomotoraPorNombre()
         {

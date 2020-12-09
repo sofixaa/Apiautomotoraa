@@ -10,7 +10,7 @@ namespace Apiautomotora.Azure
 {
     public class VendedorAzure
     {
-        static string connectionString = @"Server=LAPTOP-RSP5ST3A\SQLEXPRESS;Database=apicaso;Trusted_Connection=true";
+        static string connectionString = @"Server=LAPTOP-RSP5ST3A\SQLEXPRESS;Database=apicaso1;Trusted_Connection=true";
         private static List<Vendedor> vendedores;
         private static DataTable retornoDeVendedorSQL(SqlConnection connection)
         {
@@ -34,7 +34,6 @@ namespace Apiautomotora.Azure
                 vendedor.rutvendedor = dataTable.Rows[i]["rutvendedor"].ToString();
                 vendedor.direccionven = dataTable.Rows[i]["direccionven"].ToString();
                 vendedor.numvendedor = int.Parse(dataTable.Rows[i]["numvendedor"].ToString());
-                vendedor.direccionauto = dataTable.Rows[i]["direccionauto"].ToString();
                 vendedores.Add(vendedor);
             }
             return vendedores;
@@ -52,7 +51,7 @@ namespace Apiautomotora.Azure
                 sqlCommand.Parameters.AddWithValue("@rutvendedor", vendedor.rutvendedor);
                 sqlCommand.Parameters.AddWithValue("@direccionven", vendedor.direccionven);
                 sqlCommand.Parameters.AddWithValue("@numvendedor", vendedor.numvendedor);
-                sqlCommand.Parameters.AddWithValue("@direccionauto", vendedor.direccionauto);
+                
 
                 try
                 {

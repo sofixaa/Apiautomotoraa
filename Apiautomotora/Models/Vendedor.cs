@@ -12,6 +12,5 @@ namespace Apiautomotora.Models
         public string rutvendedor { get; set; }
         public string direccionven { get; set; }
         public int numvendedor { get; set; }
-        public string direccionauto { get; set; }
     }
 }

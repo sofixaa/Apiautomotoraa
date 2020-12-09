@@ -20,7 +20,7 @@ namespace XUnitTestVendedor
             vendedor.rutvendedor = "202461100";
             vendedor.direccionven = "Tu Corazón";
             vendedor.numvendedor = 968288940;
-            vendedor.direccionauto = "los";
+            
 
             //Act
             resultadoObtenido = VendedorAzure.AgregarVendedor(vendedor);

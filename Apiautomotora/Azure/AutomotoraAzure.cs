@@ -11,7 +11,7 @@ namespace Apiautomotora.Azure
     public class AutomotoraAzure
     {
 
-        static string connectionString = @"Server=LAPTOP-RSP5ST3A\SQLEXPRESS;Database=apicaso;Trusted_Connection=true";
+        static string connectionString = @"Server=LAPTOP-RSP5ST3A\SQLEXPRESS;Database=apicaso1;Trusted_Connection=true";
         private static List<Automotora> automotoras;
 
         public static List<Automotora> ObtenerAutomotora()
@@ -23,58 +23,70 @@ namespace Apiautomotora.Azure
             }
         }
 
-        public static Automotora ObtenerAutomotoraPorId(int idAutomotora)
+        public static int ObtenerAutomotoraPorId(int idAutomotora)
         {
-            var dataTable = new DataTable();
+            
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand sqlCommand = new SqlCommand(null, connection);
-                sqlCommand.CommandText = $"SELECT * FROM automotora WHERE idAutomotora = {idAutomotora}";
+                sqlCommand.CommandText = "SELECT * FROM automotora WHERE idAutomotora = @idAutomotora";
+                sqlCommand.Parameters.AddWithValue("@idAutomotora", idAutomotora);
 
                 connection.Open();
                 var dataAdapter = new SqlDataAdapter(sqlCommand);
+                DataTable dt = new DataTable();
+                dataAdapter.Fill(dt);
 
-                dataAdapter.Fill(dataTable);
-
-                if (dataTable != null && dataTable.Rows.Count > 0)
+                try 
+                    
                 {
-                    Automotora automotora = new Automotora();
-                    automotora.idAutomotora = int.Parse(dataTable.Rows[0]["idAutomotora"].ToString());
-                    automotora.nomautomotora = dataTable.Rows[0]["nomautomotora"].ToString();
-                    automotora.direccionauto = dataTable.Rows[0]["direccion"].ToString();
-                    return automotora;
+                    foreach(DataRow row in dt.Rows)
+                       
+                    {
+                        Automotora automotora = new Automotora();
+                        automotora.idAutomotora = int.Parse(row["idAutomotora"].ToString());
+                        automotora.nomautomotora = row["nomautomotora"].ToString();
+                        automotora.direccionauto = row["direccionauto"].ToString();
+                        //return automotora 1;
+                        
+
+                    }
+                    return 1;
                 }
-                else
+                catch
                 {
-                    return null;
+                    return 0; 
                 }
             }
+
         }
 
         public static int AgregarAutomotora(Automotora automotora)
         {
-            int resultado = 0;
+            int resultado;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand sqlCommand = new SqlCommand(null, connection);
                 sqlCommand.CommandText = "INSERT INTO automotora (idAutomotora, nomautomotora, direccionauto) VALUES (@idAutomotora, @nomautomotora, @direccionauto)";
                 sqlCommand.Parameters.AddWithValue("@idAutomotora", automotora.idAutomotora);
-                sqlCommand.Parameters.AddWithValue("@nomSede", automotora.nomautomotora);
+                sqlCommand.Parameters.AddWithValue("@nomautomotora", automotora.nomautomotora);
                 sqlCommand.Parameters.AddWithValue("@direccionauto", automotora.direccionauto);
-
+                
                 try
                 {
                     connection.Open();
                     resultado = sqlCommand.ExecuteNonQuery();
                     connection.Close();
+                    return 1;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
+                    return 0;
                 }
             }
-            return resultado;
+            
         }
 
         public static int EliminarAutomotoraPorNombre(string nomautomotora)
@@ -109,10 +121,37 @@ namespace Apiautomotora.Azure
                 Automotora automotora = new Automotora();
                 automotora.idAutomotora = int.Parse(dataTable.Rows[0]["idAutomotora"].ToString());
                 automotora.nomautomotora = dataTable.Rows[0]["nomautomotora"].ToString();
-                automotora.direccionauto = dataTable.Rows[0]["direccion"].ToString();
+                automotora.direccionauto = dataTable.Rows[0]["direccionauto"].ToString();
                 automotoras.Add(automotora);
             }
             return automotoras;
+        }
+
+        public static int modificarAutomotora(Automotora automotora)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(null, connection);
+                command.CommandText = "UPDATE AUTOMOTORA SET nomautomotora = @nomautomotora WHERE idAutomotora = @idAutomotora";
+                command.Parameters.AddWithValue("@idAutomotora", automotora.idAutomotora );
+                command.Parameters.AddWithValue("@nomautomotora", automotora.nomautomotora);
+
+                try
+                {
+                    connection.Open();
+                    var resultado = command.ExecuteNonQuery();
+                    connection.Close();
+                    return 1;
+                }
+                catch
+                {
+                    return 0;
+
+                }
+            }
+          
+
+            
         }
 
         private static DataTable retornoDeAutomotoraSQL(SqlConnection connection)

@@ -11,15 +11,16 @@ namespace XUnitTestAdministrador
         [Fact]
         public void TestObtenerAdministradores()
         {
-            //Arrange
-            bool estaVacio = false;
+            int resultadoEsperado = 1;
+            int resultadoObtenido = 0;
+         
 
             //Act
-            var Resultado = AdministradorAzure.ObtenerAdministradores();
-            estaVacio = !Resultado.Any();
+            resultadoObtenido = AdministradorAzure.ObtenerAdministradores();
 
             //Assert
-            Assert.False(estaVacio);
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+
         }
 
         [Fact]
@@ -27,13 +28,14 @@ namespace XUnitTestAdministrador
         {
             //Arrange
             int idProbar = 1;
-            Administrador administradorRetornado;
+            //Automotora automotoraRetornado;
 
             //Act
-            administradorRetornado = AdministradorAzure.ObtenerAdministradoresPorId(idProbar);
+            int administradorRetornado = AdministradorAzure.ObtenerAdministradoresPorId(idProbar);
 
             //Assert
-            Assert.NotNull(administradorRetornado);
+            Assert.Equal(idProbar, administradorRetornado);
+
         }
 
         [Fact]
@@ -44,8 +46,8 @@ namespace XUnitTestAdministrador
             int resultadoObtenido = 0;
             Administrador administrador = new Administrador();
             administrador.idadmi = 4;
-            administrador.nombreadmi = "Aurelio";
-            administrador.rutadmi = "206769833";
+            administrador.nombreadmi = "macriso";
+            administrador.rutadmi = "2067698326";
 
             //Act
             resultadoObtenido = AdministradorAzure.AgregarAdministrador(administrador);
@@ -53,17 +55,31 @@ namespace XUnitTestAdministrador
             //Assert
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
+        [Fact]
+        public void Testmodificaradministrador()
+        {
+            Administrador administrador = new Administrador();
+            administrador.idadmi = 5;
+            administrador.nombreadmi = "mar";
+
+            int resultadoEsperado = 1;
+            int resultadoObtenido = 0;
+
+            resultadoObtenido = AdministradorAzure.modificarAdministrador(administrador);
+
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
 
         [Fact]
-        public void TestEliminarCargoPorNombre()
+        public void TestEliminarAdministradorPorNombre()
         {
             //Arrange
             Administrador administrador = new Administrador();
             administrador.idadmi = 4;
-            administrador.nombreadmi = "Aurelia";
-            administrador.rutadmi = "206769832";
+            administrador.nombreadmi = "macriso";
+            administrador.rutadmi = "2067698326";
 
-            string nombreAdmiaEliminar = "Aurelia";
+            string nombreAdmiaEliminar = "macriso";
 
             int resultadoEsperado = 1;
             int resultadoObtenido = 0;

@@ -46,7 +46,6 @@ namespace XUnitTestContrato
             int resultadoObtenido = 0;
             Contrato contrato = new Contrato();
             contrato.idcontrato = 3;
-            contrato.rutcliente = "206769831";
             contrato.datoauto = "2";
             contrato.tipocontrato = "2";
             contrato.fecontrato = "20 - 11 - 2020";
@@ -65,7 +64,6 @@ namespace XUnitTestContrato
             //Arrange
             Contrato contrato = new Contrato();
             contrato.idcontrato = 5;
-            contrato.rutcliente = "2067698312";
             contrato.tipocontrato = "23";
             contrato.fecontrato = "20 - 11 - 2021";
 

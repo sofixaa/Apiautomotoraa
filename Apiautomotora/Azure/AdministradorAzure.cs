@@ -10,55 +10,107 @@ namespace Apiautomotora.Azure
 {
     public class AdministradorAzure
     {
-        static string connectionString = @"Server=LAPTOP-RSP5ST3A\SQLEXPRESS;Database=apicaso;Trusted_Connection=true";
+        static string connectionString = @"Server=LAPTOP-RSP5ST3A\SQLEXPRESS;Database=apicaso1;Trusted_Connection=true";
 
         private static List<Administrador> administradores;
 
-        public static List<Administrador> ObtenerAdministradores()
+        public static int ObtenerAdministradores()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                var dataTablesAdministradores = retornoDeAdministradoresSQL(connection);
-                return LlenadoAdministradores (dataTablesAdministradores);
+                SqlCommand command = new SqlCommand(null, connection);
+                command.CommandText = "SELECT * FROM administrador";
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                try
+                {
+                    foreach(DataRow row in dt.Rows)
+                    {
+                        Administrador administrador = new Administrador();
+                        administrador.idadmi = int.Parse(row["idadmi"].ToString());
+                        administrador.nombreadmi = row["nombreadmi"].ToString();
+                        administrador.rutadmi = row["rutadmi"].ToString();
+
+                    }
+                    
+                    return 1;
+                } 
+                catch
+                {
+                    return 0;
+                }
+
             }
         }
 
-        public static Administrador ObtenerAdministradoresPorId(int idadmi)
+        public static int ObtenerAdministradoresPorId(int idadmi)
         {
-            var dataTable = new DataTable();
+            
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand sqlCommand = new SqlCommand(null, connection);
-                sqlCommand.CommandText = $"SELECT * FROM administrador WHERE idadmi = {idadmi}";
+                sqlCommand.CommandText = "SELECT * FROM administrador WHERE idadmi = @idadmi";
+                sqlCommand.Parameters.AddWithValue("@idadmi", idadmi);
 
                 connection.Open();
                 var dataAdapter = new SqlDataAdapter(sqlCommand);
+                DataTable dt = new DataTable();
+                dataAdapter.Fill(dt);
 
-                dataAdapter.Fill(dataTable);
+                try
+                   
+                { 
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        Administrador administrador = new Administrador();
+                        administrador.idadmi = int.Parse(row["idadmi"].ToString());
+                        administrador.nombreadmi = row["nombreadmi"].ToString();
+                        administrador.rutadmi = row["rutadmi"].ToString();
+                        //return automotora 1;
 
-                if (dataTable != null && dataTable.Rows.Count > 0)
-                {
-                    Administrador administrador = new Administrador();
-                    administrador.idadmi= int.Parse(dataTable.Rows[0]["idadmi"].ToString());
-                    administrador.nombreadmi= dataTable.Rows[0]["nombreadmi"].ToString();
-                    administrador.rutadmi = dataTable.Rows[0]["rutadmi"].ToString();
-                    return administrador;
+                    }
+                    return 1;
                 }
-                else
+                catch
                 {
-                    return null;
+                    return 0;
                 }
             }
         }
 
+        public static int modificarAdministrador(Administrador administrador)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(null, connection);
+                command.CommandText = "UPDATE ADMINISTRADOR SET nombreadmi = @nombreadmi WHERE idadmi = @idadmi";
+                command.Parameters.AddWithValue("@idadmi", administrador.idadmi);
+                command.Parameters.AddWithValue("@nombreadmi", administrador.nombreadmi);
+
+
+                try
+                {
+                    connection.Open();
+                    var resultado = command.ExecuteNonQuery();
+                    connection.Close();
+                    return 1;
+                }
+                catch
+                {
+                    return 0;
+
+                }
+            }
+        }
         public static int AgregarAdministrador(Administrador administrador)
         {
-            int resultado = 0;
+            int resultado;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand sqlCommand = new SqlCommand(null, connection);
-                sqlCommand.CommandText = "INSERT INTO cargo (idadmi, nombreadmi, rutadmi) VALUES (@idadmi, @nombreadmi, @rutadmi)";
+                sqlCommand.CommandText = "INSERT INTO administrador (idadmi, nombreadmi, rutadmi) VALUES (@idadmi, @nombreadmi, @rutadmi)";
                 sqlCommand.Parameters.AddWithValue("@idadmi", administrador.idadmi);
                 sqlCommand.Parameters.AddWithValue("@nombreadmi", administrador.nombreadmi);
                 sqlCommand.Parameters.AddWithValue("@rutadmi", administrador.nombreadmi);
@@ -69,18 +121,20 @@ namespace Apiautomotora.Azure
                     connection.Open();
                     resultado = sqlCommand.ExecuteNonQuery();
                     connection.Close();
+                    return 1;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
+                    return 0;
                 }
             }
-            return resultado;
+            
         }
 
         public static int EliminarAdministradorPorNombre(string nombreadmi)
         {
-            int resultado = 0;
+            int resultado;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -93,12 +147,14 @@ namespace Apiautomotora.Azure
                     connection.Open();
                     resultado = sqlCommand.ExecuteNonQuery();
                     connection.Close();
+                    return 1; 
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
+                    return 0;
                 }
-                return resultado;
+               
             }
         }
 

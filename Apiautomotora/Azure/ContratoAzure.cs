@@ -10,7 +10,7 @@ namespace Apiautomotora.Azure
 {
     public class ContratoAzure
     {
-        static string connectionString = @"Server=LAPTOP-RSP5ST3A\SQLEXPRESS;Database=apicaso;Trusted_Connection=true";
+        static string connectionString = @"Server=LAPTOP-RSP5ST3A\SQLEXPRESS;Database=apicaso1;Trusted_Connection=true";
         private static List<Contrato> contratos;
         public static List<Contrato> ObtenerContratos()
         {
@@ -38,7 +38,6 @@ namespace Apiautomotora.Azure
                 {
                     Contrato contrato = new Contrato();
                     contrato.idcontrato = int.Parse(dataTable.Rows[0]["idcontrato"].ToString());
-                    contrato.rutcliente = dataTable.Rows[0]["rutcliente"].ToString();
                     contrato.tipocontrato = dataTable.Rows[0]["tipocontrato"].ToString();
                     contrato.datoauto = dataTable.Rows[0]["idSede"].ToString();
                     contrato.fecontrato = dataTable.Rows[0]["fecontrato"].ToString();
@@ -62,7 +61,6 @@ namespace Apiautomotora.Azure
                 SqlCommand sqlCommand = new SqlCommand(null, connection);
                 sqlCommand.CommandText = "INSERT INTO contrato (idcontrato, rutcliente, datoauto, fecontrato, tipocontrato) VALUES (@idcontrato, @rutcliente, @datoauto, @fecontrato, @tipocontrato)";
                 sqlCommand.Parameters.AddWithValue("@idcontrato", contrato.idcontrato);
-                sqlCommand.Parameters.AddWithValue("@rutcliente", contrato.rutcliente);
                 sqlCommand.Parameters.AddWithValue("@datoauto", contrato.datoauto);
                 sqlCommand.Parameters.AddWithValue("@fecontrato", contrato.fecontrato);
                 sqlCommand.Parameters.AddWithValue("@tipocontrato", contrato.tipocontrato);
@@ -113,7 +111,6 @@ namespace Apiautomotora.Azure
             {
                 Contrato contrato = new Contrato();
                 contrato.idcontrato = int.Parse(dataTable.Rows[0]["idcontrato"].ToString());
-                contrato.rutcliente = dataTable.Rows[0]["rutcliente"].ToString();
                 contrato.tipocontrato = dataTable.Rows[0]["tipocontrato"].ToString();
                 contrato.datoauto = dataTable.Rows[0]["idSede"].ToString();
                 contrato.fecontrato = dataTable.Rows[0]["fecontrato"].ToString();
